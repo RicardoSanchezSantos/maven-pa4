@@ -49,4 +49,23 @@ public class Persona {
         this.edad = edad;
         this.email = email;
     }
+
+    public static Persona factory(String cadena){
+        if(cadena == null){
+            throw new IllegalArgumentException("El argumento no puede ser nulo");
+        }
+        String[] partes = cadena.split(",");
+        if(partes.length !=4){
+            throw new IllegalArgumentException("Argumento inválido");
+        }
+        try{
+            String nombre = partes[0];
+            String apellidos = partes[1];
+            int edad = Integer.parseInt(partes[2].trim());
+            String email = partes[3];
+            return new Persona(nombre, apellidos, edad, email);
+        } catch (NumberFormatException e){
+            throw new IllegalArgumentException("Edad inválida", e);
+        }
+    }
 }
